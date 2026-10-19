@@ -1,9 +1,3 @@
-// debug_serial.h
-// ============================================
-// RESPONSABILIDAD: Leer comandos del Monitor Serie y mostrar la ayuda.
-// No sabe nada de: bus I2C, OLED, logos ni animacion interna de los ojos.
-// ============================================
-
 #ifndef DEBUG_SERIAL_H
 #define DEBUG_SERIAL_H
 
@@ -11,16 +5,41 @@
 #include "config.h"
 #include "eyes.h"
 
-// TODO 4.1: Publica el bloque de ayuda con las 7 expresiones y la tecla de ayuda.
-// Pregunta Guía: ¿Qué debe ver un compañero que abre el monitor por primera vez?
 inline void printHelp() {
-    /* ESCRIBE TU CÓDIGO AQUÍ */
+    Serial.println();
+    Serial.println(F("===== CONTROL DE OJOS ROBOEYES ====="));
+    Serial.println(F("1 - Feliz"));
+    Serial.println(F("2 - Enfadado"));
+    Serial.println(F("3 - Cansado"));
+    Serial.println(F("4 - Triste"));
+    Serial.println(F("5 - Normal"));
+    Serial.println(F("6 - Mirada a la derecha"));
+    Serial.println(F("7 - Mirada a la izquierda"));
+    Serial.println(F("h - Mostrar esta ayuda"));
+    Serial.println(F("==================================="));
 }
 
-// TODO 4.2: Atiende el puerto sin bloquear: una tecla, respuesta inmediata; teclas 1 a 7 cambian la expresión, h repite la ayuda, los caracteres de control se ignoran en silencio.
-// Pregunta Guía: ¿Qué pasa con una tecla desconocida y qué pasa con un carácter de control?
 inline void debugSerialTick() {
-    /* ESCRIBE TU CÓDIGO AQUÍ */
+    if (Serial.available() <= 0) {
+        return;
+    }
+
+    char key = Serial.read();
+
+    if (key == '\n' || key == '\r' || key == '\t' || key < 32 || key > 126) {
+        return;
+    }
+
+    if (key == 'h' || key == 'H') {
+        printHelp();
+        return;
+    }
+
+    if (key >= '1' && key <= '7') {
+        setEyesMood(key);
+    } else {
+        Serial.println(F("[SERIAL] comando no reconocido"));
+    }
 }
 
 #endif
