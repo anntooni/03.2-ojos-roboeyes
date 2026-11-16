@@ -1,7 +1,7 @@
 {
   "name": "03.2-ojos-roboeyes",
   "version": "1.0.0",
-  "description": "Semana 03.2: Animación Ocular con RoboEyes, FSM de Arranque y Modo Debug Serial — Soporte Técnico (3° BGU) UETS",
+  "description": "Semana 03.2: RoboEyes OLED, control de motores L293D, FSM de arranque y consola serial — Soporte Técnico (3° BGU) UETS",
   "scripts": {
     "test": "node scripts/evaluar.js",
     "check": "node scripts/evaluar.js"

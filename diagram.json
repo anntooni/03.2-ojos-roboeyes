@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "author": "ESP32 - Dos puentes H con relés + OLED UETS",
+  "author": "ESP32 - Puente H simulado con relés + OLED UETS",
   "editor": "wokwi",
   "parts": [
     {
@@ -81,7 +81,7 @@
       "left": 570,
       "attrs": {
         "color": "red",
-        "label": "Motor 1 - Adelante"
+        "label": "Motor 1 - Atras"
       }
     },
     {
@@ -91,7 +91,7 @@
       "left": 570,
       "attrs": {
         "color": "orange",
-        "label": "Motor 1 - Atras"
+        "label": "Motor 1 - Adelante"
       }
     },
     {
@@ -101,7 +101,7 @@
       "left": 570,
       "attrs": {
         "color": "blue",
-        "label": "Motor 2 - Adelante"
+        "label": "Motor 2 - Atras"
       }
     },
     {
@@ -111,7 +111,45 @@
       "left": 570,
       "attrs": {
         "color": "green",
-        "label": "Motor 2 - Atras"
+        "label": "Motor 2 - Adelante"
+      }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "pwm_res_left",
+      "top": 210,
+      "left": 470,
+      "attrs": {
+        "value": "330"
+      }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "pwm_led_left",
+      "top": 200,
+      "left": 570,
+      "attrs": {
+        "color": "white",
+        "label": "Motor 1 - PWM"
+      }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "pwm_res_right",
+      "top": 260,
+      "left": 470,
+      "attrs": {
+        "value": "330"
+      }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "pwm_led_right",
+      "top": 250,
+      "left": 570,
+      "attrs": {
+        "color": "white",
+        "label": "Motor 2 - PWM"
       }
     },
     {
@@ -127,29 +165,29 @@
   "connections": [
     ["rly1:VCC", "esp:3V3", "red", []],
     ["rly1:GND", "esp:GND.1", "black", []],
-    ["rly1:IN", "esp:25", "green", []],
+    ["rly1:IN", "esp:27", "green", []],
 
     ["rly2:VCC", "esp:3V3", "red", []],
     ["rly2:GND", "esp:GND.1", "black", []],
-    ["rly2:IN", "esp:26", "green", []],
+    ["rly2:IN", "esp:14", "green", []],
 
     ["rly3:VCC", "esp:3V3", "red", []],
     ["rly3:GND", "esp:GND.1", "black", []],
-    ["rly3:IN", "esp:27", "green", []],
+    ["rly3:IN", "esp:32", "green", []],
 
     ["rly4:VCC", "esp:3V3", "red", []],
     ["rly4:GND", "esp:GND.1", "black", []],
-    ["rly4:IN", "esp:14", "green", []],
+    ["rly4:IN", "esp:33", "green", []],
 
     ["rly1:NC", "esp:3V3", "red", []],
     ["rly1:NO", "esp:GND.1", "black", []],
-    ["rly2:NC", "esp:GND.1", "black", []],
-    ["rly2:NO", "esp:3V3", "red", []],
+    ["rly2:NC", "esp:3V3", "red", []],
+    ["rly2:NO", "esp:GND.1", "black", []],
 
     ["rly3:NC", "esp:3V3", "red", []],
     ["rly3:NO", "esp:GND.1", "black", []],
-    ["rly4:NC", "esp:GND.1", "black", []],
-    ["rly4:NO", "esp:3V3", "red", []],
+    ["rly4:NC", "esp:3V3", "red", []],
+    ["rly4:NO", "esp:GND.1", "black", []],
 
     ["rly1:COM", "res1:1", "green", []],
     ["res1:2", "led1:A", "green", []],
@@ -166,6 +204,13 @@
     ["rly4:COM", "res4:1", "green", []],
     ["res4:2", "led4:A", "green", []],
     ["led4:C", "rly3:COM", "green", []],
+
+    ["esp:25", "pwm_res_left:1", "green", []],
+    ["pwm_res_left:2", "pwm_led_left:A", "green", []],
+    ["pwm_led_left:C", "esp:GND.1", "black", []],
+    ["esp:26", "pwm_res_right:1", "green", []],
+    ["pwm_res_right:2", "pwm_led_right:A", "green", []],
+    ["pwm_led_right:C", "esp:GND.1", "black", []],
 
     ["esp:TX", "$serialMonitor:RX", "", []],
     ["esp:RX", "$serialMonitor:TX", "", []],

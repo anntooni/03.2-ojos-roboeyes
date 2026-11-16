@@ -1,4 +1,3 @@
-
 #ifndef DISPLAY_H
 #define DISPLAY_H
 
@@ -16,11 +15,8 @@ Adafruit_SSD1306 display(
 );
 
 inline void initDisplay() {
-    if (!display.begin(
-            SSD1306_SWITCHCAPVCC,
-            OLED_I2C_ADDRESS)) {
-        Serial.println("[FATAL] Error al inicializar la pantalla OLED.");
-
+    if (!display.begin(SSD1306_SWITCHCAPVCC, OLED_I2C_ADDRESS)) {
+        Serial.println(F("[FATAL] Error al inicializar la pantalla OLED."));
         while (true) {
             delay(1000);
         }
@@ -36,7 +32,7 @@ inline void initDisplay() {
         "[OLED] Pantalla inicializada: %dx%d, direccion 0x%02X\n",
         OLED_WIDTH,
         OLED_HEIGHT,
-        OLED_I2C_ADDRESS
+        (unsigned int)OLED_I2C_ADDRESS
     );
 }
 

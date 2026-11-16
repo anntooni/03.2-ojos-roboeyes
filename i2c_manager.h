@@ -1,4 +1,3 @@
-
 #ifndef I2C_MANAGER_H
 #define I2C_MANAGER_H
 
@@ -19,49 +18,45 @@ inline void initI2C() {
 }
 
 inline void scanI2C() {
-    uint8_t encontrados = 0;
+    uint8_t devicesFound = 0;
+    Serial.println(F("[I2C] Escaneo de direcciones 0x01 a 0x7E"));
 
-    Serial.println("[I2C] Escaneo de direcciones 0x01 a 0x7E");
-
-    for (uint8_t direccion = 0x01; direccion <= 0x7E; direccion++) {
-        Wire.beginTransmission(direccion);
-        uint8_t error = Wire.endTransmission();
-
-        if (error == 0) {
+    for (uint8_t address = 0x01; address <= 0x7E; ++address) {
+        Wire.beginTransmission(address);
+        if (Wire.endTransmission() == 0) {
             Serial.printf(
                 "[I2C] Dispositivo encontrado en 0x%02X\n",
-                direccion
+                (unsigned int)address
             );
-            encontrados++;
+            ++devicesFound;
         }
     }
 
     Serial.printf(
         "[I2C] Escaneo finalizado. Dispositivos encontrados: %u\n",
-        encontrados
+        (unsigned int)devicesFound
     );
 }
 
 inline void testI2CDevice() {
     Wire.beginTransmission(OLED_I2C_ADDRESS);
-    uint8_t error = Wire.endTransmission();
+    const uint8_t error = Wire.endTransmission();
 
-    if (error == 0) {
-        Serial.printf(
-            "[I2C] OLED detectada en 0x%02X: OK\n",
-            OLED_I2C_ADDRESS
-        );
-    } else {
+    if (error != 0) {
         Serial.printf(
             "[FATAL] OLED sin respuesta en 0x%02X. Error I2C: %u\n",
-            OLED_I2C_ADDRESS,
-            error
+            (unsigned int)OLED_I2C_ADDRESS,
+            (unsigned int)error
         );
-
         while (true) {
             delay(1000);
         }
     }
+
+    Serial.printf(
+        "[I2C] OLED detectada en 0x%02X: OK\n",
+        (unsigned int)OLED_I2C_ADDRESS
+    );
 }
 
 #endif

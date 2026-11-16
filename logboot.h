@@ -1,4 +1,3 @@
-
 #ifndef LOGBOOT_H
 #define LOGBOOT_H
 
@@ -17,24 +16,24 @@ inline void showLogo() {
         SSD1306_WHITE
     );
     display.display();
-    Serial.println("[BOOT] Logo mostrado");
+    Serial.println(F("[BOOT] Logo mostrado"));
 }
 
 inline void testDisplay() {
-    const int lado = 20;
-    const int x = (OLED_WIDTH - lado) / 2;
-    const int y = (OLED_HEIGHT - lado) / 2;
+    const int16_t squareSize = 20;
+    const int16_t x = (OLED_WIDTH - squareSize) / 2;
+    const int16_t y = (OLED_HEIGHT - squareSize) / 2;
 
     display.clearDisplay();
-    display.drawRect(x, y, lado, lado, SSD1306_WHITE);
+    display.drawRect(x, y, squareSize, squareSize, SSD1306_WHITE);
     display.display();
 
     Serial.printf(
         "[POST] Cuadrado: x=%d, y=%d, ancho=%d, alto=%d\n",
         x,
         y,
-        lado,
-        lado
+        squareSize,
+        squareSize
     );
 }
 

@@ -3,6 +3,8 @@
 #include "display.h"
 #include "logo.h"
 #include "logboot.h"
+#include "motor_pwm.h"
+#include "motor_display.h"
 #include "eyes.h"
 #include "debug_serial.h"
 
@@ -17,26 +19,32 @@ void setup() {
     scanI2C();
     testI2CDevice();
     initDisplay();
-
-    showLogo();
     testDisplay();
-
     initEyes();
-
+    showLogo();
+    initMotorPwm();
+    stopMotors();
     printHelp();
+
     bootTime = millis();
+    Serial.println(F("[BOOT] ventana de arranque iniciada"));
 }
 
 void loop() {
+    if (!bootComplete && millis() - bootTime >= LOGO_TIME_MS) {
+        bootComplete = true;
+        movementDisplayDirty = true;
+        Serial.println(F("[BOOT] ventana finalizada; estado RUN"));
+    }
+
     if (!bootComplete) {
-        if (millis() - bootTime >= LOGO_TIME_MS) {
-            bootComplete = true;
-            Serial.println(F("[BOOT] ventana finalizada; estado RUN"));
-        } else {
-            return;
-        }
+        return;
     }
 
     debugSerialTick();
-    updateEyes();
+    if (movementDisplayActive) {
+        updateMovementDisplay();
+    } else {
+        updateEyes();
+    }
 }
