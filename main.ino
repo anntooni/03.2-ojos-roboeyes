@@ -13,7 +13,7 @@ unsigned long bootTime = 0;
 
 void setup() {
     Serial.begin(115200);
-    Serial.println(F("[BOOT] sistema de ojos OLED"));
+    Serial.println(F("[BOOT] RoboEyes OLED y control de motores"));
 
     initI2C();
     scanI2C();

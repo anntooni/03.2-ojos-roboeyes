@@ -27,6 +27,7 @@ inline void testDisplay() {
     display.clearDisplay();
     display.drawRect(x, y, squareSize, squareSize, SSD1306_WHITE);
     display.display();
+    delay(POST_DISPLAY_TIME_MS);
 
     Serial.printf(
         "[POST] Cuadrado: x=%d, y=%d, ancho=%d, alto=%d\n",

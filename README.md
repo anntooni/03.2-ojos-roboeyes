@@ -18,7 +18,8 @@ Monitor Serie y el OLED muestra el sentido de movimiento con flechas animadas.
 2. **Revisa el cableado y los pines** de las tablas de esta guía. Los motores necesitan
    alimentación propia a través del puente H; no se conectan directamente al ESP32.
 3. **Compila desde el panel de PlatformIO.** Usa el icono de la hormiga 🐜 (**Build**) en la
-   barra de PlatformIO. No necesitas terminal: la compilación debe quedar limpia, sin warnings.
+   barra de PlatformIO. No necesitas terminal: debe terminar con `SUCCESS`. RoboEyes 1.1.2
+   puede mostrar una advertencia de inicializacion en su propio codigo; no es un error de este proyecto.
 4. **Simula en Wokwi.** Con `diagram.json` y `wokwi.toml` en la raíz, ejecuta la simulación y
    revisa la telemetría en el Monitor Serie a **115200 bps**.
 
@@ -72,8 +73,20 @@ expresiones de ojos y `H` imprime la ayuda. Para volver a los ojos, primero det�
 motores. El OLED muestra una flecha animada durante el movimiento y una señal de parada
 cuando los motores estan detenidos.
 
-`diagram.json` contiene solo la placa y el OLED para conservar la simulacion existente;
-el control del L293D y los motores se verifica con el cableado fisico de arriba.
+En Wokwi, los cuatro reles existentes representan las entradas de direccion de los dos
+puentes H: las parejas de LED indican el sentido y dos LED separados muestran el PWM de
+cada habilitacion. Los reles no son un L293D ni representan motores reales: su bobina no
+debe alimentarse con PWM en el montaje fisico. La velocidad efectiva y el puente H L293D
+se comprueban con el hardware de arriba.
+
+### Como explicarlo en menos de un minuto
+
+El ESP32 recibe una tecla por el Monitor Serie y elige una de cinco acciones. Las entradas
+`IN` del L293D determinan el sentido de cada rueda; `EN1` y `EN2` reciben PWM para regular
+la velocidad. En un giro sobre el sitio, las ruedas giran en sentidos opuestos. El OLED
+muestra el movimiento o la parada, y las teclas `1` a `7` vuelven a las animaciones de ojos.
+Wokwi muestra estas senales con reles y LED, pero no calcula la fuerza ni la velocidad real
+de los motores.
 
 ---
 

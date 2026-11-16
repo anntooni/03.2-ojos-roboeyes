@@ -39,3 +39,4 @@
 
 // --- Maquina de estados de arranque (FSM BOOT -> RUN) ----------------------
 #define LOGO_TIME_MS 3000
+#define POST_DISPLAY_TIME_MS 350

@@ -14,11 +14,19 @@ inline void reportMotionCommand(MotionState requestedMotion, const __FlashString
     }
 }
 
+inline void printMotorSpeed() {
+    const uint16_t percentage =
+        (uint16_t)motorSpeed * 100 / MOTOR_PWM_MAX_DUTY;
+    Serial.printf("[MOTORES] velocidad %u%% (%u/255)\n",
+                  (unsigned int)percentage,
+                  (unsigned int)motorSpeed);
+}
+
 inline void printHelp() {
     Serial.println();
     Serial.println(F("===== CONTROL DEL ROBOT ====="));
     Serial.println(F("W - adelante | S - atras | A - girar izquierda | D - girar derecha"));
-    Serial.println(F("Espacio o 0 - detener | + / - - subir o bajar velocidad"));
+    Serial.println(F("Espacio o 0 - detener | + / - - velocidad en pasos de 20"));
     Serial.println(F("1 - feliz | 2 - enfadado | 3 - cansado | 4 - triste"));
     Serial.println(F("5 - normal | 6 - mirada derecha | 7 - mirada izquierda"));
     Serial.println(F("Deten los motores antes de cambiar a los ojos; H - ayuda"));
@@ -62,11 +70,11 @@ inline void debugSerialTick() {
             setMotorSpeed((motorSpeed > MOTOR_PWM_MAX_DUTY - MOTOR_SPEED_STEP)
                               ? MOTOR_PWM_MAX_DUTY
                               : motorSpeed + MOTOR_SPEED_STEP);
-            Serial.printf("[MOTORES] velocidad %u/255\n", (unsigned int)motorSpeed);
+            printMotorSpeed();
             break;
         case '-':
             setMotorSpeed((motorSpeed < MOTOR_SPEED_STEP) ? 0 : motorSpeed - MOTOR_SPEED_STEP);
-            Serial.printf("[MOTORES] velocidad %u/255\n", (unsigned int)motorSpeed);
+            printMotorSpeed();
             break;
         case '1':
         case '2':

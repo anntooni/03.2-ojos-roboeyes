@@ -25,8 +25,9 @@ Sistema Embebido ESP32 · Soporte Técnico · 3° BGU · Unidad Educativa Técni
 | PWM motor izquierdo | GPIO25 (`EN1`) | `config.h` |
 | PWM motor derecho | GPIO26 (`EN2`) | `config.h` |
 
-El OLED se simula en Wokwi y se conecta igual en la mesa. Wokwi conserva el circuito
-OLED original; los motores L293D se prueban con el cableado fisico de esta guia.
+El OLED se simula en Wokwi y se conecta igual en la mesa. Los reles de Wokwi simulan
+visualmente las entradas de direccion y las parejas de LED muestran el sentido; los
+indicadores PWM muestran la salida de velocidad. No son un L293D ni motores reales.
 
 | ESP32 | OLED SSD1306 |
 |---|---|
@@ -46,13 +47,13 @@ conectes los motores directamente a los GPIO.
 
 | Tecla | Accion |
 |---|---|
-| `1` | `DEFAULT` |
-| `2` | `HAPPY` |
-| `3` | `ANGRY` |
-| `4` | `TIRED` |
-| `5` | `SLEEPY` |
-| `6` | Alerta (`SCARY`) |
-| `7` | `CURIOUS` |
+| `1` | Feliz (`HAPPY`) |
+| `2` | Enfadado (`ANGRY`) |
+| `3` | Cansado (`TIRED`) |
+| `4` | Triste (ojos bajos) |
+| `5` | Normal (`DEFAULT`) |
+| `6` | Mirada a la derecha |
+| `7` | Mirada a la izquierda |
 | `h` o `H` | Repite el bloque de ayuda |
 | `w` | Adelante |
 | `s` | Atras |
@@ -128,7 +129,7 @@ en la descripción del Pull Request.
 
 ## 6. Secuencia de demostracion
 
-1. Verifica que el OLED responda en `0x3C` y termina la ventana del logo.
+1. Verifica que el OLED responda en `0x3C`, observa el cuadrado de autoprueba y termina la ventana del logo.
 2. Usa `W`, `S`, `A` y `D`; comprueba que las flechas del OLED coinciden con el giro.
 3. Prueba `+` y `-` para explicar como el ciclo PWM ajusta la velocidad.
 4. Pulsa espacio o `0`: deben apagarse los motores y el OLED debe mostrar detenido.
