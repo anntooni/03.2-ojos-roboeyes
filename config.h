@@ -24,5 +24,20 @@
 // --- Modulo de ojos (RoboEyes) ---------------------------------------------
 #define EYES_MAX_FPS 60
 
+// --- Motores L293D ----------------------------------------------------------
+#define MOTOR_A_ENABLE_PIN 25
+#define MOTOR_A_FORWARD_PIN 26
+#define MOTOR_A_BACKWARD_PIN 27
+
+#define MOTOR_B_ENABLE_PIN 14
+#define MOTOR_B_FORWARD_PIN 16
+#define MOTOR_B_BACKWARD_PIN 17
+
+#define MOTOR_PWM_FREQUENCY_HZ 1000
+#define MOTOR_PWM_RESOLUTION 8
+#define MOTOR_A_PWM_CHANNEL 0
+#define MOTOR_B_PWM_CHANNEL 1
+#define MOTOR_DEFAULT_SPEED 180
+
 // --- Maquina de estados de arranque (FSM BOOT -> RUN) ----------------------
 #define LOGO_TIME_MS 3000
