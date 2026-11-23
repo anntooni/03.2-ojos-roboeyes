@@ -109,7 +109,6 @@ de los motores.
 | `wokwi.toml` | Ruta del firmware para el simulador |
 | `03.2-ojos-roboeyes.code-workspace` | Espacio de trabajo multiraíz |
 | `CHEATSHEET_ESTUDIANTE.md` | Pines, direcciones, teclas y commits |
-| `motor_manager.h` | Control de los dos motores L293D y estados seguros |
 
 Regla de estructura: **cero archivos `.cpp`** y **cero diapositivas** en este repositorio.
 Todo el código vive en el boceto `.ino` y en los encabezados de módulo.

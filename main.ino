@@ -1,51 +1,50 @@
-// main.ino
-// ============================================
-// En este archivo solo se decide el orden de arranque y el estado actual.
-// ============================================
-
 #include "config.h"
 #include "i2c_manager.h"
 #include "display.h"
 #include "logo.h"
 #include "logboot.h"
+#include "motor_pwm.h"
+#include "motor_display.h"
 #include "eyes.h"
 #include "debug_serial.h"
-#include "motor_manager.h"
 
 bool bootComplete = false;
 unsigned long bootTime = 0;
 
 void setup() {
     Serial.begin(115200);
-    Serial.println(F("[BOOT] sistema de ojos OLED"));
-
-    initMotors();
+    Serial.println(F("[BOOT] RoboEyes OLED y control de motores"));
 
     initI2C();
     scanI2C();
     testI2CDevice();
-
     initDisplay();
-    showLogo();
     testDisplay();
-
     initEyes();
+    showLogo();
+    initMotorPwm();
+    stopMotors();
     printHelp();
 
     bootTime = millis();
+    Serial.println(F("[BOOT] ventana de arranque iniciada"));
 }
 
 void loop() {
-    if (!bootComplete) {
-        showLogo();
+    if (!bootComplete && millis() - bootTime >= LOGO_TIME_MS) {
+        bootComplete = true;
+        movementDisplayDirty = true;
+        Serial.println(F("[BOOT] ventana finalizada; estado RUN"));
+    }
 
-        if (millis() - bootTime >= LOGO_TIME_MS) {
-            bootComplete = true;
-            Serial.println(F("[FSM] BOOT -> RUN"));
-        }
+    if (!bootComplete) {
         return;
     }
 
     debugSerialTick();
-    updateEyes();
+    if (movementDisplayActive) {
+        updateMovementDisplay();
+    } else {
+        updateEyes();
+    }
 }
