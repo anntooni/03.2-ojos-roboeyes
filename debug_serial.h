@@ -11,16 +11,25 @@
 #include "config.h"
 #include "eyes.h"
 
-// TODO 4.1: Publica el bloque de ayuda con las 7 expresiones y la tecla de ayuda.
-// Pregunta Guía: ¿Qué debe ver un compañero que abre el monitor por primera vez?
 inline void printHelp() {
-    /* ESCRIBE TU CÓDIGO AQUÍ */
+    Serial.println(F("[DEBUG] ayuda:"));
+    Serial.println(F("1 DEFAULT | 2 HAPPY | 3 ANGRY"));
+    Serial.println(F("4 TIRED | 5 SLEEPY | 6 SCARY"));
+    Serial.println(F("7 CURIOUS | h ayuda"));
 }
 
-// TODO 4.2: Atiende el puerto sin bloquear: una tecla, respuesta inmediata; teclas 1 a 7 cambian la expresión, h repite la ayuda, los caracteres de control se ignoran en silencio.
-// Pregunta Guía: ¿Qué pasa con una tecla desconocida y qué pasa con un carácter de control?
 inline void debugSerialTick() {
-    /* ESCRIBE TU CÓDIGO AQUÍ */
+    if (Serial.available()) {
+        char key = Serial.read();
+
+        if (key == 'h') {
+        printHelp();
+        } else if (key >= '1' && key <= '7') {
+        setEyesMood(key);
+        Serial.print(F("[DEBUG] expresion "));
+        Serial.println(key);
+        }
+    }
 }
 
 #endif

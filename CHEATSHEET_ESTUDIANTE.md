@@ -43,7 +43,7 @@ Cableado en Wokwi y en la mesa de laboratorio:
 | `5` | `SLEEPY` |
 | `6` | `SCARY` |
 | `7` | `CURIOUS` |
-| `h` o `H` | Repite el bloque de ayuda |
+| `h` | Repite el bloque de ayuda |
 
 Reglas de la consola que debes respetar en tu código de Arduino:
 

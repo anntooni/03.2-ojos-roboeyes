@@ -11,16 +11,25 @@
 #include "display.h"
 #include "logo.h"
 
-// TODO 2.2: Pinta el marco del logo desde logo_bitmap y preséntalo en el panel.
-// Pregunta Guía: ¿Qué debe verse en el panel durante la ventana de arranque?
 inline void showLogo() {
-    /* ESCRIBE TU CÓDIGO AQUÍ */
+    display.clearDisplay();
+    display.drawBitmap(0, 0, logo_bitmap, LOGO_WIDTH, LOGO_HEIGHT, SSD1306_WHITE);
+    display.display();
 }
 
-// TODO 2.3: Dibuja el cuadrado de autoprueba centrado e informa sus coordenadas.
-// Pregunta Guía: ¿Cómo compruebas que el cuadrado quedó centrado sin medir a ojo?
 inline void testDisplay() {
-    /* ESCRIBE TU CÓDIGO AQUÍ */
+    const int size = 16;
+    const int x = (OLED_WIDTH - size) / 2;
+    const int y = (OLED_HEIGHT - size) / 2;
+
+    display.clearDisplay();
+    display.drawRect(x, y, size, size, SSD1306_WHITE);
+    display.display();
+
+    Serial.print(F("[POST] cuadrado centrado en x="));
+    Serial.print(x);
+    Serial.print(F(" y="));
+    Serial.println(y);
 }
 
 #endif
