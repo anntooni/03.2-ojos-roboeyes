@@ -1,3 +1,9 @@
+// display.h
+// ============================================
+// RESPONSABILIDAD: Controlar el OLED SSD1306 (inicializacion y texto).
+// No sabe nada de: ojos, logos, POST ni comandos del Monitor Serie.
+// ============================================
+
 #ifndef DISPLAY_H
 #define DISPLAY_H
 
@@ -7,41 +13,24 @@
 #include <Adafruit_SSD1306.h>
 #include "config.h"
 
-Adafruit_SSD1306 display(
-    OLED_WIDTH,
-    OLED_HEIGHT,
-    &Wire,
-    OLED_RESET_PIN
-);
+// Instancia global: el sistema tiene una sola pantalla
+Adafruit_SSD1306 display(OLED_WIDTH, OLED_HEIGHT, &Wire, OLED_RESET_PIN);
 
 inline void initDisplay() {
     if (!display.begin(SSD1306_SWITCHCAPVCC, OLED_I2C_ADDRESS)) {
-        Serial.println(F("[FATAL] Error al inicializar la pantalla OLED."));
+        Serial.println(F("[OLED] ERROR: pantalla no inicializada"));
         while (true) {
-            delay(1000);
+            delay(100);
         }
     }
 
     display.clearDisplay();
-    display.setTextSize(1);
-    display.setTextColor(SSD1306_WHITE);
-    display.setCursor(0, 0);
     display.display();
-
-    Serial.printf(
-        "[OLED] Pantalla inicializada: %dx%d, direccion 0x%02X\n",
-        OLED_WIDTH,
-        OLED_HEIGHT,
-        (unsigned int)OLED_I2C_ADDRESS
-    );
+    Serial.println(F("[OLED] panel listo de 128x64 a 400 kHz"));
 }
 
-inline void showText(
-    const __FlashStringHelper* texto,
-    int x,
-    int y,
-    uint8_t tamano
-) {
+// Ejemplo de uso de la API del panel: imprime una linea de texto y la presenta.
+inline void showText(const __FlashStringHelper* texto, int x, int y, uint8_t tamano) {
     display.setTextSize(tamano);
     display.setTextColor(SSD1306_WHITE);
     display.setCursor(x, y);

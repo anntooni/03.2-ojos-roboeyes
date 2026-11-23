@@ -1,3 +1,9 @@
+// i2c_manager.h
+// ============================================
+// RESPONSABILIDAD: Hablar con el bus I2C (pines, velocidad, escaneo y verificacion).
+// No sabe nada de: OLED, logos, ojos ni comandos del Monitor Serie.
+// ============================================
+
 #ifndef I2C_MANAGER_H
 #define I2C_MANAGER_H
 
@@ -8,55 +14,42 @@
 inline void initI2C() {
     Wire.begin(I2C_SDA_PIN, I2C_SCL_PIN);
     Wire.setClock(I2C_FREQUENCY_HZ);
-
-    Serial.printf(
-        "[I2C] Bus iniciado: SDA=%d, SCL=%d, frecuencia=%lu Hz\n",
-        I2C_SDA_PIN,
-        I2C_SCL_PIN,
-        (unsigned long)I2C_FREQUENCY_HZ
-    );
+    Serial.println(F("[I2C] bus listo SDA=21 SCL=22"));
 }
 
 inline void scanI2C() {
-    uint8_t devicesFound = 0;
-    Serial.println(F("[I2C] Escaneo de direcciones 0x01 a 0x7E"));
+    byte count = 0;
 
-    for (uint8_t address = 0x01; address <= 0x7E; ++address) {
+    Serial.println(F("[I2C] escaneando direcciones 1-126"));
+    for (byte address = 1; address < 127; address++) {
         Wire.beginTransmission(address);
-        if (Wire.endTransmission() == 0) {
-            Serial.printf(
-                "[I2C] Dispositivo encontrado en 0x%02X\n",
-                (unsigned int)address
-            );
-            ++devicesFound;
+        byte result = Wire.endTransmission();
+
+        if (result == 0) {
+            Serial.print(F("[I2C] dispositivo encontrado 0x"));
+            if (address < 16) Serial.print('0');
+            Serial.println(address, HEX);
+            count++;
         }
     }
 
-    Serial.printf(
-        "[I2C] Escaneo finalizado. Dispositivos encontrados: %u\n",
-        (unsigned int)devicesFound
-    );
+    Serial.print(F("[I2C] escaneo completo: "));
+    Serial.print(count);
+    Serial.println(count == 1 ? F(" dispositivo") : F(" dispositivos"));
 }
 
 inline void testI2CDevice() {
     Wire.beginTransmission(OLED_I2C_ADDRESS);
-    const uint8_t error = Wire.endTransmission();
+    byte result = Wire.endTransmission();
 
-    if (error != 0) {
-        Serial.printf(
-            "[FATAL] OLED sin respuesta en 0x%02X. Error I2C: %u\n",
-            (unsigned int)OLED_I2C_ADDRESS,
-            (unsigned int)error
-        );
-        while (true) {
-            delay(1000);
-        }
+    if (result == 0) {
+        Serial.print(F("[I2C] panel OLED responde en 0x"));
+        Serial.println(OLED_I2C_ADDRESS, HEX);
+    } else {
+        Serial.print(F("[I2C] ERROR: panel OLED no responde en 0x"));
+        Serial.println(OLED_I2C_ADDRESS, HEX);
+        Serial.println(F("[BOOT] ERROR: el arranque se detiene"));
     }
-
-    Serial.printf(
-        "[I2C] OLED detectada en 0x%02X: OK\n",
-        (unsigned int)OLED_I2C_ADDRESS
-    );
 }
 
 #endif
