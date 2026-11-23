@@ -1,12 +1,12 @@
-# Semana 03.2 — RoboEyes OLED, control de motores y FSM de arranque
+# Semana 03.2 — control de motores y FSM de arranque
 
 [![Ver Guía Maestra en Vivo](https://img.shields.io/badge/Guía_Técnica-Ver_en_Línea-E07A5F?style=for-the-badge&logo=cloudflare)](https://uets-st-portal.vgmiltonisaac.workers.dev/03.2-ojos-roboeyes/)
 
 Sistema Embebido ESP32 · Soporte Técnico 3° BGU · Unidad Educativa Técnico Salesiano · 2026–2027
 
-Este proyecto para ESP32 combina la animacion RoboEyes, una pantalla de arranque y el
-control de dos motores reductores mediante un L293D. Los comandos se reciben por el
-Monitor Serie y el OLED muestra el sentido de movimiento con flechas animadas.
+Este proyecto para ESP32 combina una pantalla de arranque y el control de dos motores
+reductores mediante un L293D. Los siete botones se reciben por el Monitor Serie y el OLED
+muestra el sentido de movimiento con flechas animadas.
 
 ---
 
@@ -18,8 +18,7 @@ Monitor Serie y el OLED muestra el sentido de movimiento con flechas animadas.
 2. **Revisa el cableado y los pines** de las tablas de esta guía. Los motores necesitan
    alimentación propia a través del puente H; no se conectan directamente al ESP32.
 3. **Compila desde el panel de PlatformIO.** Usa el icono de la hormiga 🐜 (**Build**) en la
-   barra de PlatformIO. No necesitas terminal: debe terminar con `SUCCESS`. RoboEyes 1.1.2
-   puede mostrar una advertencia de inicializacion en su propio codigo; no es un error de este proyecto.
+   barra de PlatformIO. No necesitas terminal: debe terminar con `SUCCESS`.
 4. **Simula en Wokwi.** Con `diagram.json` y `wokwi.toml` en la raíz, ejecuta la simulación y
    revisa la telemetría en el Monitor Serie a **115200 bps**.
 
@@ -67,11 +66,10 @@ salvo que el modulo soporte explicitamente una carga conectada.
 ### Comandos
 
 Abre el Monitor Serie a 115200 bps y usa `W` adelante, `S` atras, `A` giro a la izquierda,
-`D` giro a la derecha y `Espacio` o `0` para detener. Los giros son sobre el sitio: las
-ruedas giran en sentidos opuestos. `+` y `-` cambian la velocidad; `1` a `7` muestran
-expresiones de ojos y `H` imprime la ayuda. Para volver a los ojos, primero detén los
-motores. El OLED muestra una flecha animada durante el movimiento y una señal de parada
-cuando los motores estan detenidos.
+`D` giro a la derecha y `Espacio` para detener. Los giros son sobre el sitio: las ruedas
+giran en sentidos opuestos. `+` y `-` cambian la velocidad. Las siete teclas estan definidas
+en `config.h` para cambiar los botones facilmente. El OLED muestra una flecha animada
+durante el movimiento y una señal de parada cuando los motores estan detenidos.
 
 En Wokwi, los cuatro reles existentes representan las entradas de direccion de los dos
 puentes H: las parejas de LED indican el sentido y dos LED separados muestran el PWM de
@@ -81,11 +79,10 @@ se comprueban con el hardware de arriba.
 
 ### Como explicarlo en menos de un minuto
 
-El ESP32 recibe una tecla por el Monitor Serie y elige una de cinco acciones. Las entradas
+El ESP32 recibe una tecla por el Monitor Serie y elige una de siete acciones. Las entradas
 `IN` del L293D determinan el sentido de cada rueda; `EN1` y `EN2` reciben PWM para regular
 la velocidad. En un giro sobre el sitio, las ruedas giran en sentidos opuestos. El OLED
-muestra el movimiento o la parada, y las teclas `1` a `7` vuelven a las animaciones de ojos.
-Wokwi muestra estas senales con reles y LED, pero no calcula la fuerza ni la velocidad real
+muestra el movimiento o la parada. Wokwi muestra estas senales con reles y LED, pero no calcula la fuerza ni la velocidad real
 de los motores.
 
 ---
@@ -100,7 +97,6 @@ de los motores.
 | `display.h` | Pantalla OLED SSD1306: inicialización y texto |
 | `logo.h` | Datos del bitmap del logo de arranque |
 | `logboot.h` | Logo de arranque y POST de pantalla |
-| `eyes.h` | Ojos animados (RoboEyes) y expresión elegida |
 | `debug_serial.h` | Comandos del Monitor Serie y bloque de ayuda |
 | `motor_pwm.h` | PWM, velocidad y dirección de los dos motores |
 | `motor_display.h` | Flechas animadas y estado de movimiento en el OLED |

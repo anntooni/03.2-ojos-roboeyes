@@ -21,9 +21,6 @@
 #define OLED_HEIGHT 64
 #define OLED_RESET_PIN -1
 
-// --- Modulo de ojos (RoboEyes) ---------------------------------------------
-#define EYES_MAX_FPS 60
-
 // --- Puente H L293D: enable de cada motor y entradas de direccion -----------
 #define MOTOR_LEFT_PWM_PIN 25
 #define MOTOR_LEFT_IN1_PIN 27
@@ -36,6 +33,15 @@
 #define MOTOR_PWM_MAX_DUTY 255
 #define MOTOR_DEFAULT_SPEED 180
 #define MOTOR_SPEED_STEP 20
+
+// --- Teclas de control (solo siete acciones) -------------------------------
+#define CONTROL_FORWARD 'W'
+#define CONTROL_BACKWARD 'S'
+#define CONTROL_LEFT 'A'
+#define CONTROL_RIGHT 'D'
+#define CONTROL_STOP ' '
+#define CONTROL_SPEED_UP '+'
+#define CONTROL_SPEED_DOWN '-'
 
 // --- Maquina de estados de arranque (FSM BOOT -> RUN) ----------------------
 #define LOGO_TIME_MS 3000

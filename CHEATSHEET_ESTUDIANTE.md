@@ -1,4 +1,4 @@
-# CHEATSHEET — Semana 03.2: RoboEyes, motores y FSM de arranque
+# CHEATSHEET — Semana 03.2: motores y FSM de arranque
 
 Sistema Embebido ESP32 · Soporte Técnico · 3° BGU · Unidad Educativa Técnico Salesiano
 
@@ -19,7 +19,6 @@ Sistema Embebido ESP32 · Soporte Técnico · 3° BGU · Unidad Educativa Técni
 | Pin de reset | `-1` (no cableado) | `config.h` |
 | Velocidad del Monitor Serie | `115200 bps` | `main.ino` |
 | Ventana del logo de arranque | `3000 ms` | `config.h` |
-| Cuadros por segundo objetivo | `60 fps` | `config.h` |
 | Frecuencia PWM motores | `20 kHz` | `config.h` |
 | Resolucion PWM | `8 bits` (0-255) | `config.h` |
 | PWM motor izquierdo | GPIO25 (`EN1`) | `config.h` |
@@ -47,27 +46,20 @@ conectes los motores directamente a los GPIO.
 
 | Tecla | Accion |
 |---|---|
-| `1` | Feliz (`HAPPY`) |
-| `2` | Enfadado (`ANGRY`) |
-| `3` | Cansado (`TIRED`) |
-| `4` | Triste (ojos bajos) |
-| `5` | Normal (`DEFAULT`) |
-| `6` | Mirada a la derecha |
-| `7` | Mirada a la izquierda |
-| `h` o `H` | Repite el bloque de ayuda |
-| `w` | Adelante |
-| `s` | Atras |
-| `a` | Giro a la izquierda |
-| `d` | Giro a la derecha |
-| `Espacio` o `0` | Detener ambos motores |
-| `+` o `-` | Subir o bajar velocidad |
+| `W` | Adelante: ambos motores giran al mismo tiempo |
+| `S` | Atras: ambos motores giran al mismo tiempo |
+| `A` | Giro a la izquierda |
+| `D` | Giro a la derecha |
+| `Espacio` | Detener ambos motores |
+| `+` | Subir velocidad |
+| `-` | Bajar velocidad |
 
 Reglas de la consola que debes respetar en tu código de Arduino:
 
 - Se lee **una sola tecla por vuelta** del bucle, sin bloquear la animación.
 - Una tecla válida produce **respuesta inmediata** por el monitor.
 - Los caracteres de control (incluido el salto de línea del Enter) **se ignoran en silencio**.
-- Para mostrar las expresiones de ojos, primero detén los motores.
+- Todas las teclas están centralizadas en `config.h`.
 
 ### Ideas clave para explicar
 
@@ -93,7 +85,6 @@ Reglas de la consola que debes respetar en tu código de Arduino:
 | `display.h` | Pantalla: inicialización y texto |
 | `logo.h` | Datos del bitmap del logo de arranque |
 | `logboot.h` | Logo de arranque y POST de pantalla |
-| `eyes.h` | Ojos animados y expresión elegida |
 | `debug_serial.h` | Comandos del Monitor Serie y ayuda |
 | `motor_pwm.h` | PWM y funciones de movimiento |
 | `motor_display.h` | Flechas y estado de movimiento en el OLED |
@@ -132,7 +123,7 @@ en la descripción del Pull Request.
 1. Verifica que el OLED responda en `0x3C`, observa el cuadrado de autoprueba y termina la ventana del logo.
 2. Usa `W`, `S`, `A` y `D`; comprueba que las flechas del OLED coinciden con el giro.
 3. Prueba `+` y `-` para explicar como el ciclo PWM ajusta la velocidad.
-4. Pulsa espacio o `0`: deben apagarse los motores y el OLED debe mostrar detenido.
-5. Usa `1` a `7` para regresar a las expresiones animadas de RoboEyes.
+4. Pulsa espacio: deben apagarse los motores y el OLED debe mostrar detenido.
+5. Cambia `+` y `-` una vez más para comprobar el ajuste final de velocidad.
 
 Cada paso depende del anterior: si el bus no responde, nada de lo demás se puede ver.

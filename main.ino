@@ -5,7 +5,6 @@
 #include "logboot.h"
 #include "motor_pwm.h"
 #include "motor_display.h"
-#include "eyes.h"
 #include "debug_serial.h"
 
 bool bootComplete = false;
@@ -13,14 +12,13 @@ unsigned long bootTime = 0;
 
 void setup() {
     Serial.begin(115200);
-    Serial.println(F("[BOOT] RoboEyes OLED y control de motores"));
+    Serial.println(F("[BOOT] OLED y control de motores"));
 
     initI2C();
     scanI2C();
     testI2CDevice();
     initDisplay();
     testDisplay();
-    initEyes();
     showLogo();
     initMotorPwm();
     stopMotors();
@@ -44,7 +42,5 @@ void loop() {
     debugSerialTick();
     if (movementDisplayActive) {
         updateMovementDisplay();
-    } else {
-        updateEyes();
     }
 }
