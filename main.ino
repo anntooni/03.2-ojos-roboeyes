@@ -10,6 +10,7 @@
 #include "logboot.h"
 #include "eyes.h"
 #include "debug_serial.h"
+#include "motor_manager.h"
 
 bool bootComplete = false;
 unsigned long bootTime = 0;
@@ -17,6 +18,8 @@ unsigned long bootTime = 0;
 void setup() {
     Serial.begin(115200);
     Serial.println(F("[BOOT] sistema de ojos OLED"));
+
+    initMotors();
 
     initI2C();
     scanI2C();

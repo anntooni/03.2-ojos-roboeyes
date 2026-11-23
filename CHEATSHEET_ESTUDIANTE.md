@@ -30,6 +30,17 @@ Cableado en Wokwi y en la mesa de laboratorio:
 | `3V3` | `VCC` |
 | `GND` | `GND` |
 
+## 2. Motores y indicadores LED
+
+| Función | GPIO ESP32 | Entrada L293D |
+|---|---:|---|
+| PWM Motor A | `25` | `EN1` |
+| Adelante Motor A / LED verde | `26` | `IN1` |
+| Atrás Motor A / LED rojo | `27` | `IN2` |
+| PWM Motor B | `14` | `EN2` |
+| Adelante Motor B / LED verde | `16` | `IN3` |
+| Atrás Motor B / LED rojo | `17` | `IN4` |
+
 ---
 
 ## 2. Consola de depuración (Monitor Serie a 115200 bps)

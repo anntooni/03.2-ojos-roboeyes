@@ -1,223 +1,60 @@
 {
   "version": 1,
-  "author": "ESP32 - Puente H simulado con relés + OLED UETS",
+  "author": "UETS Soporte Tecnico - Ing. Milton Velasquez & Ing. Christian Japon",
   "editor": "wokwi",
   "parts": [
-    {
-      "type": "board-esp32-devkit-c-v4",
-      "id": "esp",
-      "top": 0,
-      "left": 0,
-      "attrs": {}
-    },
-    {
-      "type": "wokwi-relay-module",
-      "id": "rly1",
-      "top": 0,
-      "left": 230,
-      "attrs": {}
-    },
-    {
-      "type": "wokwi-relay-module",
-      "id": "rly2",
-      "top": 130,
-      "left": 230,
-      "attrs": {}
-    },
-    {
-      "type": "wokwi-relay-module",
-      "id": "rly3",
-      "top": 300,
-      "left": 230,
-      "attrs": {}
-    },
-    {
-      "type": "wokwi-relay-module",
-      "id": "rly4",
-      "top": 430,
-      "left": 230,
-      "attrs": {}
-    },
-    {
-      "type": "wokwi-resistor",
-      "id": "res1",
-      "top": 50,
-      "left": 470,
-      "attrs": {
-        "value": "330"
-      }
-    },
-    {
-      "type": "wokwi-resistor",
-      "id": "res2",
-      "top": 100,
-      "left": 470,
-      "attrs": {
-        "value": "330"
-      }
-    },
-    {
-      "type": "wokwi-resistor",
-      "id": "res3",
-      "top": 350,
-      "left": 470,
-      "attrs": {
-        "value": "330"
-      }
-    },
-    {
-      "type": "wokwi-resistor",
-      "id": "res4",
-      "top": 400,
-      "left": 470,
-      "attrs": {
-        "value": "330"
-      }
-    },
-    {
-      "type": "wokwi-led",
-      "id": "led1",
-      "top": 30,
-      "left": 570,
-      "attrs": {
-        "color": "red",
-        "label": "Motor 1 - Atras"
-      }
-    },
-    {
-      "type": "wokwi-led",
-      "id": "led2",
-      "top": 120,
-      "left": 570,
-      "attrs": {
-        "color": "orange",
-        "label": "Motor 1 - Adelante"
-      }
-    },
-    {
-      "type": "wokwi-led",
-      "id": "led3",
-      "top": 330,
-      "left": 570,
-      "attrs": {
-        "color": "blue",
-        "label": "Motor 2 - Atras"
-      }
-    },
-    {
-      "type": "wokwi-led",
-      "id": "led4",
-      "top": 420,
-      "left": 570,
-      "attrs": {
-        "color": "green",
-        "label": "Motor 2 - Adelante"
-      }
-    },
-    {
-      "type": "wokwi-resistor",
-      "id": "pwm_res_left",
-      "top": 210,
-      "left": 470,
-      "attrs": {
-        "value": "330"
-      }
-    },
-    {
-      "type": "wokwi-led",
-      "id": "pwm_led_left",
-      "top": 200,
-      "left": 570,
-      "attrs": {
-        "color": "white",
-        "label": "Motor 1 - PWM"
-      }
-    },
-    {
-      "type": "wokwi-resistor",
-      "id": "pwm_res_right",
-      "top": 260,
-      "left": 470,
-      "attrs": {
-        "value": "330"
-      }
-    },
-    {
-      "type": "wokwi-led",
-      "id": "pwm_led_right",
-      "top": 250,
-      "left": 570,
-      "attrs": {
-        "color": "white",
-        "label": "Motor 2 - PWM"
-      }
-    },
-    {
-      "type": "board-ssd1306",
-      "id": "oled",
-      "top": -120,
-      "left": 160,
-      "attrs": {
-        "i2cAddress": "0x3c"
-      }
-    }
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": 0, "attrs": {} },
+    { "type": "board-ssd1306", "id": "oled", "top": -120, "left": 160, "attrs": { "i2cAddress": "0x3c" } },
+    { "type": "wokwi-l293d", "id": "l293d", "top": 180, "left": 260, "rotate": 0, "attrs": {} },
+    { "type": "wokwi-dc-motor", "id": "motor_a", "top": 260, "left": 80, "rotate": 90, "attrs": { "label": "Motor A" } },
+    { "type": "wokwi-dc-motor", "id": "motor_b", "top": 260, "left": 450, "rotate": 90, "attrs": { "label": "Motor B" } },
+    { "type": "wokwi-led", "id": "led_a_green", "top": -40, "left": 300, "attrs": { "color": "green", "label": "A adelante" } },
+    { "type": "wokwi-resistor", "id": "res_a_green", "top": -40, "left": 350, "rotate": 90, "attrs": { "value": "330" } },
+    { "type": "wokwi-led", "id": "led_a_red", "top": 40, "left": 300, "attrs": { "color": "red", "label": "A atras" } },
+    { "type": "wokwi-resistor", "id": "res_a_red", "top": 40, "left": 350, "rotate": 90, "attrs": { "value": "330" } },
+    { "type": "wokwi-led", "id": "led_b_green", "top": -40, "left": 500, "attrs": { "color": "green", "label": "B adelante" } },
+    { "type": "wokwi-resistor", "id": "res_b_green", "top": -40, "left": 550, "rotate": 90, "attrs": { "value": "330" } },
+    { "type": "wokwi-led", "id": "led_b_red", "top": 40, "left": 500, "attrs": { "color": "red", "label": "B atras" } },
+    { "type": "wokwi-resistor", "id": "res_b_red", "top": 40, "left": 550, "rotate": 90, "attrs": { "value": "330" } }
   ],
   "connections": [
-    ["rly1:VCC", "esp:3V3", "red", []],
-    ["rly1:GND", "esp:GND.1", "black", []],
-    ["rly1:IN", "esp:27", "green", []],
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+    [ "esp:GND.1", "oled:GND", "black", [ "h0" ] ],
+    [ "esp:3V3", "oled:VCC", "red", [ "h0" ] ],
+    [ "esp:22", "oled:SCL", "gold", [ "h0" ] ],
+    [ "esp:21", "oled:SDA", "green", [ "h0" ] ],
 
-    ["rly2:VCC", "esp:3V3", "red", []],
-    ["rly2:GND", "esp:GND.1", "black", []],
-    ["rly2:IN", "esp:14", "green", []],
+    [ "esp:25", "l293d:1", "purple", [ "h0" ] ],
+    [ "esp:26", "l293d:2", "blue", [ "h0" ] ],
+    [ "esp:27", "l293d:7", "blue", [ "h0" ] ],
+    [ "esp:14", "l293d:9", "purple", [ "h0" ] ],
+    [ "esp:16", "l293d:10", "green", [ "h0" ] ],
+    [ "esp:17", "l293d:15", "red", [ "h0" ] ],
 
-    ["rly3:VCC", "esp:3V3", "red", []],
-    ["rly3:GND", "esp:GND.1", "black", []],
-    ["rly3:IN", "esp:32", "green", []],
+    [ "l293d:3", "motor_a:1", "orange", [ "h0" ] ],
+    [ "l293d:6", "motor_a:2", "orange", [ "h0" ] ],
+    [ "l293d:14", "motor_b:1", "orange", [ "h0" ] ],
+    [ "l293d:11", "motor_b:2", "orange", [ "h0" ] ],
 
-    ["rly4:VCC", "esp:3V3", "red", []],
-    ["rly4:GND", "esp:GND.1", "black", []],
-    ["rly4:IN", "esp:33", "green", []],
+    [ "esp:26", "res_a_green:1", "green", [ "h0" ] ],
+    [ "res_a_green:2", "led_a_green:A", "green", [ "h0" ] ],
+    [ "led_a_green:C", "esp:GND.1", "black", [ "h0" ] ],
+    [ "esp:27", "res_a_red:1", "red", [ "h0" ] ],
+    [ "res_a_red:2", "led_a_red:A", "red", [ "h0" ] ],
+    [ "led_a_red:C", "esp:GND.1", "black", [ "h0" ] ],
+    [ "esp:16", "res_b_green:1", "green", [ "h0" ] ],
+    [ "res_b_green:2", "led_b_green:A", "green", [ "h0" ] ],
+    [ "led_b_green:C", "esp:GND.1", "black", [ "h0" ] ],
+    [ "esp:17", "res_b_red:1", "red", [ "h0" ] ],
+    [ "res_b_red:2", "led_b_red:A", "red", [ "h0" ] ],
+    [ "led_b_red:C", "esp:GND.1", "black", [ "h0" ] ],
 
-    ["rly1:NC", "esp:3V3", "red", []],
-    ["rly1:NO", "esp:GND.1", "black", []],
-    ["rly2:NC", "esp:3V3", "red", []],
-    ["rly2:NO", "esp:GND.1", "black", []],
-
-    ["rly3:NC", "esp:3V3", "red", []],
-    ["rly3:NO", "esp:GND.1", "black", []],
-    ["rly4:NC", "esp:3V3", "red", []],
-    ["rly4:NO", "esp:GND.1", "black", []],
-
-    ["rly1:COM", "res1:1", "green", []],
-    ["res1:2", "led1:A", "green", []],
-    ["led1:C", "rly2:COM", "green", []],
-
-    ["rly2:COM", "res2:1", "green", []],
-    ["res2:2", "led2:A", "green", []],
-    ["led2:C", "rly1:COM", "green", []],
-
-    ["rly3:COM", "res3:1", "green", []],
-    ["res3:2", "led3:A", "green", []],
-    ["led3:C", "rly4:COM", "green", []],
-
-    ["rly4:COM", "res4:1", "green", []],
-    ["res4:2", "led4:A", "green", []],
-    ["led4:C", "rly3:COM", "green", []],
-
-    ["esp:25", "pwm_res_left:1", "green", []],
-    ["pwm_res_left:2", "pwm_led_left:A", "green", []],
-    ["pwm_led_left:C", "esp:GND.1", "black", []],
-    ["esp:26", "pwm_res_right:1", "green", []],
-    ["pwm_res_right:2", "pwm_led_right:A", "green", []],
-    ["pwm_led_right:C", "esp:GND.1", "black", []],
-
-    ["esp:TX", "$serialMonitor:RX", "", []],
-    ["esp:RX", "$serialMonitor:TX", "", []],
-    ["esp:GND.1", "oled:GND", "black", ["h0"]],
-    ["esp:3V3", "oled:VCC", "red", ["h0"]],
-    ["esp:22", "oled:SCL", "gold", ["h0"]],
-    ["esp:21", "oled:SDA", "green", ["h0"]]
+    [ "esp:3V3", "l293d:16", "red", [ "h0" ] ],
+    [ "esp:GND.1", "l293d:4", "black", [ "h0" ] ],
+    [ "esp:GND.1", "l293d:5", "black", [ "h0" ] ],
+    [ "esp:GND.1", "l293d:12", "black", [ "h0" ] ],
+    [ "esp:GND.1", "l293d:13", "black", [ "h0" ] ]
   ],
   "dependencies": {}
 }
